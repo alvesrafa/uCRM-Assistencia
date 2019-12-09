@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Cliente;
 class ClienteController extends Controller
 {
 
     public function index(){
-        return view('cliente.index');
+        $clientes = Cliente::paginate(10);
+
+        return view('cliente.index', compact('clientes'));
     }
 
     public function create(){
@@ -16,8 +18,10 @@ class ClienteController extends Controller
     }
 
     public function store(Request $request){
-        Cliente::crerate($request->all());
-        return view('cliente.index')->with('success', 'Cliente cadastrado com sucesso!');
+
+        Cliente::create($request->all());
+
+        return redirect('/clientes')->with('success', 'Cliente cadastrado com sucesso!');
     }
 
     public function show($id){
@@ -35,6 +39,11 @@ class ClienteController extends Controller
 
 
     public function destroy($id){
-        //
+        $cliente = Cliente::findOrFail($id);
+        if(!$cliente->trashed()){
+            $cliente->delete();
+        } else {
+            $cliente->restore();
+        }
     }
 }

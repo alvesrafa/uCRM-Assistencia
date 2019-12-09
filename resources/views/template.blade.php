@@ -23,9 +23,8 @@ $menu = [
         <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 
         <!-- Material Design Bootstrap -->
-        <link rel="stylesheet" href="{{asset('/css/bootstrap.min.css')}}">
+        <link rel="stylesheet" href="{{asset('mdbootstrap/css/bootstrap.min.css')}}">
         <link rel="stylesheet" href="{{asset('mdbootstrap/css/mdb.min.css')}}">
-        
         <!-- Material Design Bootstrap -->
 
         <style>
@@ -35,51 +34,105 @@ $menu = [
                 padding: 0;
                 box-sizing: border-box;
             }
-            #sidebar {
-                background: #333;
-                position: fixed;
-                min-width: 190px;
-                min-height: 100vh;
+            @media (max-width: 767px) {
+                
+                #header {
+                    z-index: 99;
+                    width: 100% ;
+                    background: #05151E;
+                    position: fixed;
+                    padding: 0 16px;
+                    height: 55px;
+                    color: white;
+                }
+                #workspace {
+                    width: 100%;
+                    margin-left: 0px;
+                    background: white;
+                }
+                #module-info {
+                    color: #fff;
+                    min-height: 64px;
+                    padding-left: 10px;
+                }
+                #module-info i { font-size: 36px; }
+                #module-info h1 {
+                    max-width: 100px;
+                    font-size: 18px;
+                    margin: 0;
+                }
+                #content {
+                    padding: 20px;
+                    padding-top: 55px;
+                    min-height: calc(100vh - 128px);
+                }
+                #footer {
+                    color: #5f6368;
+                    height: 40px;
+                    padding-left: 16px;
+                    border-top: 1px solid #cfd8dc;
+                    background: white;
+                    position: fixed;
+                    width: 100%;
+                    bottom: 0;
+                }
+                #sidebar {
+                    display:none;
+                    background: #162935;
+                    position: fixed;
+                    min-width: 190px;
+                    min-height: 100vh;
+                }
             }
-            #header {
-                z-index: 99;
-                width: calc(100% - 190px);
-                background: #333;
-                position: fixed;
-                padding: 0 16px;
-                height: 55px;
-                color: white;
+            @media (min-width: 768px) {
+                #sidebar {
+                    background: #162935;
+                    position: fixed;
+                    min-width: 190px;
+                    min-height: 100vh;
+                }
+                #header {
+                    z-index: 99;
+                    width: calc(100% - 190px);
+                    background: #05151E;
+                    position: fixed;
+                    padding: 0 16px;
+                    height: 55px;
+                    color: white;
+                }
+                #workspace {
+                    width: calc(100% - 190px);
+                    margin-left: 190px;
+                    background: white;
+                }
+                #module-info {
+                    color: #fff;
+                    min-height: 64px;
+                    padding-left: 10px;
+                }
+                #module-info i { font-size: 36px; }
+                #module-info h1 {
+                    max-width: 100px;
+                    font-size: 18px;
+                    margin: 0;
+                }
+                #content {
+                    padding: 20px;
+                    padding-top: 55px;
+                    min-height: calc(100vh - 128px);
+                }
+                #footer {
+                    color: #5f6368;
+                    height: 40px;
+                    padding-left: 16px;
+                    border-top: 1px solid #cfd8dc;
+                    background: white;
+                    position: fixed;
+                    width: calc(100% - 190px);
+                    bottom: 0;
+                }
             }
-            #workspace {
-                width: calc(100% - 190px);
-                margin-left: 190px;
-                background: white;
-            }
-            #module-info {
-                color: #fff;
-                min-height: 64px;
-                padding-left: 10px;
-            }
-            #module-info i { font-size: 36px; }
-            #module-info h1 {
-                max-width: 100px;
-                font-size: 18px;
-                margin: 0;
-            }
-            #content {
-                padding: 16px;
-                min-height: calc(100vh - 128px);
-            }
-            #footer {
-                color: #5f6368;
-                height: 40px;
-                padding-left: 16px;
-                border-top: 1px solid #cfd8dc;
-                background: white;
-                position: fixed;
-                width: calc(100% - 190px);
-                bottom: 0;
-            }
+            
 
         </style>
 
@@ -154,25 +207,30 @@ $menu = [
             var main_url="{{url('')}}"
         </script>
         <script>
+
             function toggleMenu() {
-                console.log('#sidebar');
-                var sidebar = document.getElementById('sidebar');
-                var workspace = document.getElementById('workspace');
-                var header = document.getElementById('header');
-                var footer = document.getElementById('footer');
+                var width = window.innerWidth;
+                if(width > 767){
+                    var sidebar = document.getElementById('sidebar');
+                    var workspace = document.getElementById('workspace');
+                    var header = document.getElementById('header');
+                    var footer = document.getElementById('footer');
 
-                var displaySidebar = sidebar.style.display === "none" ? "block" : "none";
-                var marginLeftWorkspace = workspace.style.marginLeft === "0px" ? "190px" : "0px";
-                var widthWorkspace = workspace.style.width === "100%" ? "calc(100% - 190px)" : "100%";
-                var widthWorkspace = workspace.style.width === "100%" ? "calc(100% - 190px)" : "100%";
-                var widthFooter = footer.style.width === "100%" ? "calc(100% - 190px)" : "100%";
-                var widthHeader = header.style.width === "100%" ? "calc(100% - 190px)" : "100%";
+                    var displaySidebar = sidebar.style.display === "none" ? "block" : "none";
+                    var marginLeftWorkspace = workspace.style.marginLeft === "0px" ? "190px" : "0px";
+                    var widthWorkspace = workspace.style.width === "100%" ? "calc(100% - 190px)" : "100%";
+                    var widthFooter = footer.style.width === "100%" ? "calc(100% - 190px)" : "100%";
+                    var widthHeader = header.style.width === "100%" ? "calc(100% - 190px)" : "100%";
 
-                sidebar.style.display = displaySidebar;
-                workspace.style.marginLeft = marginLeftWorkspace;
-                workspace.style.width = widthWorkspace;
-                footer.style.width = widthWorkspace;
-                header.style.width = widthHeader;
+                    sidebar.style.display = displaySidebar;
+                    workspace.style.marginLeft = marginLeftWorkspace;
+                    workspace.style.width = widthWorkspace;
+                    footer.style.width = widthWorkspace;
+                    header.style.width = widthHeader;
+                }
+
+
+               
 
             }
         </script>
