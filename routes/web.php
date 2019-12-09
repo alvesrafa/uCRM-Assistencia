@@ -5,3 +5,4 @@ Route::resources([
     'clientes' => 'ClienteController',
     
 ]);
+
