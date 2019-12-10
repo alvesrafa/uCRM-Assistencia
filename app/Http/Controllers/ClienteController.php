@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Cliente;
+use App\{Cliente, Estado, Endereco};
 class ClienteController extends Controller
 {
 
@@ -14,13 +14,21 @@ class ClienteController extends Controller
     }
 
     public function create(){
-        return view('cliente.form');
+        $estados = Estado::all();
+        return view('cliente.form', compact('estados'));
     }
 
     public function store(Request $request){
-
-        Cliente::create($request->all());
-
+        $dados = $request->all();
+        $endereco = Endereco::create($dados['endereco']);
+        $cliente = Cliente::create([
+            'nome' => $dados['nome'],
+            'email' => $dados['email'],
+            'cpf' => $dados['cpf'],
+            'telefone' => $dados['telefone'],
+            'endereco_id' => $endereco->id
+        ]);
+        
         return redirect('/clientes')->with('success', 'Cliente cadastrado com sucesso!');
     }
 

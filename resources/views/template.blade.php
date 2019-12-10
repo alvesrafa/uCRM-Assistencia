@@ -206,6 +206,9 @@ $menu = [
         <script>
             var main_url="{{url('')}}"
         </script>
+        <script src="{{asset('bibliotecas/js/jquery.min.js')}}"></script>
+        <script src="{{asset('bibliotecas/js/jquery.mask.js')}}"></script>
+        
         <script>
 
             function toggleMenu() {
