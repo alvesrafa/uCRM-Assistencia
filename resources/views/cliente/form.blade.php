@@ -3,42 +3,45 @@
 <div class="card">
     <div class="card-header">Cadastro de cliente</div>
     <div class="card-body">
-    <form action="{{url('/clientes')}}" method="POST">
+    <form action="{{isset($cliente) ? url('/clientes/'.$cliente->id) : url('/clientes')}}" method="POST"> 
+        @if(isset($cliente))
+            @method('PUT')
+        @endif
         @csrf
         <div class="row">
             <div class="form-group col-md-8">
-                <input type="text" name="nome" placeholder="Nome" class="form-control">
+                <input type="text" name="nome" placeholder="Nome" class="form-control" value="{{old('nome' , isset($cliente->nome) ? $cliente->nome : '' )}}">
             </div>
         </div>
         <div class="row">
             <div class="form-group col-md-6">
-                <input type="email" name="email" placeholder="E-mail" class="form-control">
+                <input type="email" name="email" placeholder="E-mail" class="form-control" value="{{old('email', isset($cliente->email) ? $cliente->email : '')}}">
             </div>
             <div class="form-group col-md-6">
-                <input type="text" name="cpf" placeholder="CPF" class="form-control">
+                <input type="text" name="documento" placeholder="CPF" class="form-control" value="{{old('documento', isset($cliente->documento) ? $cliente->documento : '')}}">
             </div>
         </div>
         <hr>
         <div class="row">
             <div class="form-group col-md-4">
-                <input type="text" name="telefone" class="form-control" placeholder="Telefone">
+                <input type="text" name="telefone" class="form-control" placeholder="Telefone" value="{{ old('telefone', isset($cliente->telefone) ? $cliente->telefone : '')}}">
             </div>
         </div>
         <div class="row">
             <div class="form-group col-md-3">
-                <input type="text" class="form-control" name="endereco[cep]" placeholder="CEP">
+                <input type="text" class="form-control" name="endereco[cep]" placeholder="CEP" value="{{old('endereco.cep', isset($cliente) ? $cliente->endereco->cep : '')}}">
             </div>
             <div class="form-group col-md-6 col-sm-10">
-                <input type="text" class="form-control" name="endereco[logradouro]" placeholder="Logradouro">
+                <input type="text" class="form-control" name="endereco[logradouro]" placeholder="Logradouro" value="{{old('endereco.logradouro', isset($cliente) ? $cliente->endereco->logradouro : '')}}">
             </div>
             <div class="form-group col-md-2 col-sm-2">
-                <input type="text" class="form-control" name="endereco[numero]" placeholder="Número">
+                <input type="text" class="form-control" name="endereco[numero]" placeholder="Número" value="{{old('endereco.numero', isset($cliente) ? $cliente->endereco->numero : '')}}">
             </div>
             <div class="form-group col-md-3 col-sm-6">
-                <input type="text" class="form-control" name="endereco[complemento]" placeholder="Complemento"> 
+                <input type="text" class="form-control" name="endereco[complemento]" placeholder="Complemento" value="{{old('endereco.complemento', isset($cliente) ? $cliente->endereco->complemento : '')}}"> 
             </div>
             <div class="form-group col-md-3 col-sm-6">
-                <input type="text" class="form-control" name="endereco[bairro]" placeholder="Bairro">
+                <input type="text" class="form-control" name="endereco[bairro]" placeholder="Bairro" value="{{old('endereco.bairro', isset($cliente) ? $cliente->endereco->bairro : '')}}">
             </div>
             <div class="form-group col-md-3">
             <select cidade="{{ old('endereco.cidade_id', isset($cliente) ? $cliente->endereco->cidade_id : "")}}" name="endereco[estado_id]" class="form-control" id="estado">
@@ -55,8 +58,8 @@
             </div>
         </div>
         
+        <button type="submit" class="btn {{isset($cliente) ? 'btn-primary' : 'btn-success'}}">{{isset($cliente) ? 'Atualizar' : 'Cadastrar'}}</button>
 
-        <button type="submit" class="btn btn-success">Cadastrar</button>
     </form>
     </div>
 </div>

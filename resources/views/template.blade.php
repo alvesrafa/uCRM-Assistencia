@@ -131,6 +131,9 @@ $menu = [
                     width: calc(100% - 190px);
                     bottom: 0;
                 }
+                .container {
+                    padding: 25px;
+                }
             }
             
 
@@ -206,9 +209,14 @@ $menu = [
         <script>
             var main_url="{{url('')}}"
         </script>
+
+        
+        
         <script src="{{asset('bibliotecas/js/jquery.min.js')}}"></script>
         <script src="{{asset('bibliotecas/js/jquery.mask.js')}}"></script>
-        
+        <script src="{{asset('mdbootstrap/js/bootstrap.min.js')}}"></script>
+        <script src="{{asset('mdbootstrap/js/mdb.min.js')}}"></script>
+        <script src="{{asset('mdbootstrap/js/popper.min.js')}}"></script>
         <script>
 
             function toggleMenu() {

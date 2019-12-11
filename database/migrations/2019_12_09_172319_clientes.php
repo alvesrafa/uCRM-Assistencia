@@ -13,7 +13,7 @@ class Clientes extends Migration
             $table->string('nome');
             $table->string('telefone')->nullable();
             $table->integer('endereco_id')->index('fk_cliente_endereco1');
-            $table->string('cpf')->unique();
+            $table->string('documento')->unique();
             $table->string('email')->unique();
             $table->softDeletes();
             $table->timestamps();

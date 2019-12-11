@@ -19,13 +19,13 @@ class ClienteController extends Controller
     }
 
     public function store(Request $request){
-        $dados = $request->all();
-        $endereco = Endereco::create($dados['endereco']);
+        
+        $endereco = Endereco::create($request['endereco']);
         $cliente = Cliente::create([
-            'nome' => $dados['nome'],
-            'email' => $dados['email'],
-            'cpf' => $dados['cpf'],
-            'telefone' => $dados['telefone'],
+            'nome' => $request['nome'],
+            'email' => $request['email'],
+            'documento' => $request['documento'],
+            'telefone' => $request['telefone'],
             'endereco_id' => $endereco->id
         ]);
         
@@ -38,11 +38,23 @@ class ClienteController extends Controller
 
     public function edit($id)
     {
-        //
+
+        $estados = Estado::all();
+        $cliente = Cliente::findOrFail($id);
+
+        return view('cliente.form', compact('cliente', 'estados'));
     }
 
     public function update(Request $request, $id){
-        //
+        $cliente = Cliente::findOrFail($id);
+        $cliente->endereco->update($request['endereco']);
+        $cliente->update([
+            'nome' => $request['nome'],
+            'email' => $request['email'],
+            'documento' => $request['documento'],
+            'telefone' => $request['telefone'],
+        ]);
+        return redirect('/clientes')->with('success', 'Cliente Atualizado com sucesso.');
     }
 
 
@@ -53,5 +65,15 @@ class ClienteController extends Controller
         } else {
             $cliente->restore();
         }
+    }
+    public function table(Request $request){
+        $clientes = new Cliente;
+        if($request->status == 'ativos')
+            $clientes = $clientes::paginate(10);
+        
+        if($request->status == 'inativos')
+            $clientes = $clientes::onlyTrashed()->paginate(10);
+            
+        return view('cliente.table', compact('clientes'));
     }
 }
