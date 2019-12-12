@@ -8,18 +8,18 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($clientes as $cliente)
+        @foreach($tecnicos as $tecnico)
             <tr>
-                <td>{{$cliente->nome}}</td>
-                <td>{{$cliente->documento}}</td>
-                <td>{{$cliente->email}}</td>
+                <td>{{$tecnico->nome}}</td>
+                <td>{{$tecnico->documento}}</td>
+                <td>{{$tecnico->email}}</td>
                 <td class="d-flex justify-content-around align-items-center">
-                    <a href="{{url('/clientes/'.$cliente->id)}}" class="btn btn-info px-2" >Ver Mais</a>
-                    <a href="{{url('/clientes/'.$cliente->id.'/edit')}}" class="btn btn-warning px-2">Lápis</a>
-                    <form  class="" action="{{url('/clientes/'.$cliente->id)}}" method="post">
+                    <a href="{{url('/tecnicos/'.$tecnico->id)}}" class="btn btn-info px-2" >Ver Mais</a>
+                    <a href="{{url('/tecnicos/'.$tecnico->id.'/edit')}}" class="btn btn-warning px-2">Lápis</a>
+                    <form  class="" action="{{url('/tecnicos/'.$tecnico->id)}}" method="post">
                         @csrf
                         @method('delete')
-                        @if($cliente->trashed())
+                        @if($tecnico->trashed())
                             <button class="btn btn-secondary px-2" type="submit">ativar</button>
                         @else
                             <button class="btn btn-danger px-2" type="submit">lixo</button>
@@ -35,15 +35,15 @@
             <td colspan="100%" class="text-center">
                 <p class="text-center">
 
-                    Página {{$clientes->currentPage()}} de {{$clientes->lastPage()}} páginas
+                    Página {{$tecnicos->currentPage()}} de {{$tecnicos->lastPage()}} páginas
 
                 </p>
             </td>
         </tr>
-        @if($clientes->lastPage() > 1)
+        @if($tecnicos->lastPage() > 1)
         <tr>
             <td colspan="100%">
-                {{ $clientes->links() }}
+                {{ $tecnicos->links() }}
             </td>
         </tr>
         @endif

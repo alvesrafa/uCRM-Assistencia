@@ -8,9 +8,8 @@ class ClienteController extends Controller
 {
 
     public function index(){
-        $clientes = Cliente::paginate(10);
 
-        return view('cliente.index', compact('clientes'));
+        return view('cliente.index');
     }
 
     public function create(){
@@ -59,20 +58,24 @@ class ClienteController extends Controller
 
 
     public function destroy($id){
-        $cliente = Cliente::findOrFail($id);
+        $cliente = Cliente::withTrashed()->findOrFail($id);
         if(!$cliente->trashed()){
             $cliente->delete();
+            return redirect('/clientes')->with('success', 'Cliente deletado com sucesso.');
         } else {
             $cliente->restore();
+            return redirect('/clientes')->with('success', 'Cliente restaurado com sucesso.');
         }
+
+        
     }
     public function table(Request $request){
         $clientes = new Cliente;
         if($request->status == 'ativos')
-            $clientes = $clientes::paginate(10);
+            $clientes = $clientes::paginate(1);
         
         if($request->status == 'inativos')
-            $clientes = $clientes::onlyTrashed()->paginate(10);
+            $clientes = $clientes::onlyTrashed()->paginate(1);
             
         return view('cliente.table', compact('clientes'));
     }
