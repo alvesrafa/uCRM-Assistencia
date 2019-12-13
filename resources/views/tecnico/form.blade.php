@@ -38,8 +38,6 @@
 @section('js')
 <script>
     //Mascaras
-    $("[name='endereco[cep]']").mask('99999-999')
-    $("[name='endereco[numero]']").mask('99999')
     var SPMaskBehavior = function(val) {
         return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
     },
@@ -48,79 +46,8 @@
             field.mask(SPMaskBehavior.apply({}, arguments), options);
         }
     };
-
     $("[name='telefone']").mask(SPMaskBehavior, spOptions);
     //Mascaras
-    $(document).ready(function() {
-        if($('[name="endereco[estado_id]"]').val()){
-            getCidades($('[name="endereco[estado_id]"]').val(), $('[name="endereco[estado_id]"]').attr('cidade'))
-        } //quando vem do edit
-    });
 
-    $('#estado').change(function() {
-
-        var idEstado = $(this).val();
-        if (idEstado) {
-            getCidades(idEstado);
-        } else {
-            $('#cidade').empty()
-            $('#cidade').append("<option selected disabled value=''>Selecione</option>")
-        }
-
-    });
-    function getCidades(estado_id,nome_cidade=null){
-        $.get(main_url+'/api/cidades/' + estado_id, function(cidades) {
-                $('#cidade').empty()
-                $('#cidade').append("<option selected disabled value=''>Selecione a cidade</option>")
-                $.each(cidades, function(key, value) {
-                
-                    if(nome_cidade == value.nome || nome_cidade == value.id){
-                        $('#cidade').append('<option selected value=' + value.id + '>' + value.nome + '</option>')
-                    }else{
-                        $('#cidade').append('<option  value=' + value.id + '>' + value.nome + '</option>')
-                    }
-                })
-        })
-
-    }
-    //Quando o campo cep perde o foco.
-    $("[name='endereco[cep]']").blur(function() {
-        //Nova variável "cep" somente com dígitos.
-        var cep = $(this).val().replace(/\D/g, '');
-        //Verifica se campo cep possui valor informado.
-        if (cep != "") {
-            //Expressão regular para validar o CEP.
-            var validacep = /^[0-9]{8}$/;
-
-            //Valida o formato do CEP.
-            if (validacep.test(cep)) {
-                //Consulta o webservice viacep.com.br/
-                $.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?", function(dados) {
-
-                    if (!("erro" in dados)) {
-                        //Atualiza os campos com os valores da consulta.
-                        $("[name='endereco[logradouro]']").val(dados.logradouro);
-                        $("[name='endereco[bairro]']").val(dados.bairro);
-
-                        var estado = $(`select[name='endereco[estado_id]'] option[uf='${dados.uf}']`);
-                        estado.attr('selected', 'selected');
-                        
-                        getCidades(estado.val(),dados.localidade);
-                        $("[name='endereco[numero]']").focus();
-                        
-                    } //end if.
-                    else {
-                        //CEP pesquisado não foi encontrado.
-                    }
-                });
-            } //end if.
-            else {
-                //cep é inválido.
-            }
-        } //end if.
-        else {
-            //cep sem valor, limpa formulário.   
-        }
-    });
 </script>
 @endsection
