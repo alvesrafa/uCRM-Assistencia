@@ -1,11 +1,11 @@
 @extends('template')
 @section('content')
 <div class="card">
-    <div class="card-header">
+    <div class="card-header d-flex justify-content-between align-items-center">
         Lista de clientes
         <a class="btn btn-primary" href="{{url('clientes/create')}}">Novo</a>
     </div>
-    <div class="card-body ">
+    <div class="card-body">
         <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active" id="ativos" data-toggle="tab" href="#ativos" role="tab" aria-controls="ativos"

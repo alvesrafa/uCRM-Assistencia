@@ -5,6 +5,8 @@ Route::resources([
     'clientes' => 'ClienteController',
     'tecnicos' => 'TecnicoController',
     'maoobra'  => 'MaoObraController',
+    'pecas'    => 'PecaController',
+    
 
 ]);
 Route::get('/cliente/table', 'ClienteController@table');

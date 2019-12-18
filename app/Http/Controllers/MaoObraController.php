@@ -25,7 +25,7 @@ class MaoObraController extends Controller{
             'valor' => $request['valor'],
         ]);
         
-        return redirect('/maoobra')->with('success', 'Técnico cadastrado com sucesso!');
+        return redirect('/maoobra')->with('success', 'Serviço cadastrado com sucesso!');
     }
 
     public function show($id){
@@ -47,7 +47,7 @@ class MaoObraController extends Controller{
             'nome' => $request['nome'],
             'valor' => $request['valor'],
         ]);
-        return redirect('/maoobra')->with('success', 'Técnico Atualizado com sucesso.');
+        return redirect('/maoobra')->with('success', 'Serviço Atualizado com sucesso.');
     }
 
 
@@ -55,10 +55,10 @@ class MaoObraController extends Controller{
         $maoobra = MaoObra::withTrashed()->findOrFail($id);
         if(!$maoobra->trashed()){
             $maoobra->delete();
-            return redirect('/maoobra')->with('success', 'Técnico deletado com sucesso.');
+            return redirect('/maoobra')->with('success', 'Serviço deletado com sucesso.');
         } else {
             $maoobra->restore();
-            return redirect('/maoobra')->with('success', 'Técnico restaurado com sucesso.');
+            return redirect('/maoobra')->with('success', 'Serviço restaurado com sucesso.');
         }
 
         

@@ -1,7 +1,7 @@
 @extends('template')
 @section('content')
 <div class="card">
-    <div class="card-header">
+    <div class="card-header d-flex justify-content-between align-items-center">
         Lista de Técnicos
         <a class="btn btn-primary" href="{{url('tecnicos/create')}}">Novo</a>
     </div>

@@ -1,7 +1,7 @@
 @extends('template')
 @section('content')
 <div class="card">
-    <div class="card-header">Cadastro de técnico</div>
+    <div class="card-header">Cadastrar mão-de-obra</div>
     <div class="card-body">
     <form action="{{isset($maoobra) ? url('/maoobra/'.$maoobra->id) : url('/maoobra')}}" method="POST"> 
         @if(isset($maoobra))

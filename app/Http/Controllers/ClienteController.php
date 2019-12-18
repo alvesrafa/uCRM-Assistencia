@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\{Cliente, Estado, Endereco};
+
 class ClienteController extends Controller
 {
 
