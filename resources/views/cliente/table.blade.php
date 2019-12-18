@@ -1,4 +1,4 @@
-<table class="table">
+<table class="table text-center">
     <thead>
         <tr>
             <th scope="col">Nome</th>
@@ -14,18 +14,22 @@
                 <td>{{$cliente->documento}}</td>
                 <td>{{$cliente->email}}</td>
                 <td class="d-flex justify-content-around align-items-center">
-                    <a href="{{url('/clientes/'.$cliente->id)}}" class="btn btn-info px-2" >Ver Mais</a>
-                    <a href="{{url('/clientes/'.$cliente->id.'/edit')}}" class="btn btn-warning px-2">Lápis</a>
-                    <form  class="" action="{{url('/clientes/'.$cliente->id)}}" method="post">
-                        @csrf
-                        @method('delete')
-                        @if($cliente->trashed())
-                            <button class="btn btn-secondary px-2" type="submit">ativar</button>
-                        @else
-                            <button class="btn btn-danger px-2" type="submit">lixo</button>
-                        @endif
-                    </form>
-
+                    
+                    @if($cliente->trashed())
+                        <form  class="" action="{{url('/clientes/'.$cliente->id)}}" method="post">
+                            @csrf
+                            @method('delete')
+                                <button class="btn btn-secondary px-2" type="submit">ativar</button>
+                        </form>
+                    @else
+                        <a href="{{url('/clientes/'.$cliente->id)}}" class="btn btn-info px-2" >Ver Mais</a>
+                        <a href="{{url('/clientes/'.$cliente->id.'/edit')}}" class="btn btn-warning px-2">Lápis</a>
+                        <form  class="" action="{{url('/clientes/'.$cliente->id)}}" method="post">
+                            @csrf
+                            @method('delete')
+                                <button class="btn btn-danger px-2" type="submit">lixo</button>
+                        </form>
+                    @endif
                 </td>
             </tr>
         @endforeach

@@ -6,6 +6,8 @@ $moduleInfo = [
 $menu = [
     ['icon' => 'build', 'tool' => 'Clientes', 'route' => 'clientes.index'],
     ['icon' => 'face', 'tool' => 'Técnicos', 'route' => 'tecnicos.index'],
+    ['icon' => 'face', 'tool' => 'Mãos-de-obra', 'route' => 'maoobra.index'],
+    ['icon' => 'face', 'tool' => 'Peças', 'route' => 'pecas.index'],
 ];
 ?>
 <!DOCTYPE html>

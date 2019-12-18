@@ -30,14 +30,14 @@
 <script>
     $(document).ready(function(){
         var status = 'ativos'
-        table(main_url+'/tecnico/table?status='+status)
+        table(main_url+'/table/tecnicos?status='+status)
         $(document).on('click', '#inativos' , function(){
             status = 'inativos'
-            table(main_url+'/tecnico/table?status='+status)
+            table(main_url+'/table/tecnicos?status='+status)
         })
         $(document).on('click', '#ativos' , function(){
             status = 'ativos'
-            table(main_url+'/tecnico/table?status='+status)
+            table(main_url+'/table/tecnicos?status='+status)
         })
         $(document).on('click','.page-link', function(e){
             e.preventDefault();

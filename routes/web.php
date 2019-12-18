@@ -6,10 +6,10 @@ Route::resources([
     'tecnicos' => 'TecnicoController',
     'maoobra'  => 'MaoObraController',
     'pecas'    => 'PecaController',
-    
-
 ]);
-Route::get('/cliente/table', 'ClienteController@table');
-Route::get('/tecnico/table', 'TecnicoController@table');
-Route::get('/table/maoobra', 'MaoObraController@table');
-
+Route::prefix('table')->group(function () {
+    Route::get('/clientes', 'ClienteController@table');
+    Route::get('/tecnicos', 'TecnicoController@table');
+    Route::get('/maoobra', 'MaoObraController@table');
+    Route::get('/pecas', 'PecaController@table');
+});

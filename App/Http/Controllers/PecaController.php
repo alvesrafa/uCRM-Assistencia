@@ -52,11 +52,11 @@ class PecaController extends Controller
 
     public function destroy($id){
         $peca = Peca::withTrashed()->findOrFail($id);
-        if(!$pecas->trashed()){
-            $pecas->delete();
+        if(!$peca->trashed()){
+            $peca->delete();
             return redirect('/pecas')->with('success', 'Peça deletada com sucesso.');
         } else {
-            $pecas->restore();
+            $peca->restore();
             return redirect('/pecas')->with('success', 'Peça restaurada com sucesso.');
         }
 
@@ -64,13 +64,13 @@ class PecaController extends Controller
     }
 
     public function table(Request $request){
-        $pecass = new Peca;
+        $pecas = new Peca;
         if($request->status == 'ativos')
-            $pecass = $pecass::paginate(1);
+            $pecas = $pecas::paginate(1);
         
         if($request->status == 'inativos')
-            $pecass = $pecass::onlyTrashed()->paginate(1);
+            $pecas = $pecas::onlyTrashed()->paginate(1);
             
-        return view('pecas.table', compact('pecass'));
+        return view('pecas.table', compact('pecas'));
     }
 }

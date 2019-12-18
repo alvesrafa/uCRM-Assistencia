@@ -1,4 +1,4 @@
-<table class="table">
+<table class="table text-center">
     <thead>
         <tr>
             <th scope="col">Nome</th>
@@ -14,17 +14,22 @@
                 <td>{{$tecnico->documento}}</td>
                 <td>{{$tecnico->email}}</td>
                 <td class="d-flex justify-content-around align-items-center">
+                @if($tecnico->trashed())
+                    <form  class="" action="{{url('/tecnicos/'.$tecnico->id)}}" method="post">
+                        @csrf
+                        @method('delete')
+                            <button class="btn btn-secondary px-2" type="submit">ativar</button>
+                    </form>
+                @else
                     <a href="{{url('/tecnicos/'.$tecnico->id)}}" class="btn btn-info px-2" >Ver Mais</a>
                     <a href="{{url('/tecnicos/'.$tecnico->id.'/edit')}}" class="btn btn-warning px-2">Lápis</a>
                     <form  class="" action="{{url('/tecnicos/'.$tecnico->id)}}" method="post">
                         @csrf
                         @method('delete')
-                        @if($tecnico->trashed())
-                            <button class="btn btn-secondary px-2" type="submit">ativar</button>
-                        @else
                             <button class="btn btn-danger px-2" type="submit">lixo</button>
-                        @endif
                     </form>
+                @endif
+                    
 
                 </td>
             </tr>
