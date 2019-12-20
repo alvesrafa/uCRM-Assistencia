@@ -14,7 +14,18 @@ class Ordens extends Migration
     public function up()
     {
         Schema::create('ordens', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
+            $table->string('defeito');
+            $table->string('observacoes');
+            $table->integer('numero');
+            $table->double('desconto', 4, 2);
+            $table->double('valor', 4, 2);
+            $table->integer('cliente_id')->unsigned();
+            $table->integer('tecnico_id')->unsigned();
+            $table->integer('aparelho_id')->unsigned();
+            $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade');
+            $table->foreign('tecnico_id')->references('id')->on('tecnicos')->onDelete('cascade');
+            $table->foreign('aparelho_id')->references('id')->on('aparelhos')->onDelete('cascade');
             $table->timestamps();
         });
     }
