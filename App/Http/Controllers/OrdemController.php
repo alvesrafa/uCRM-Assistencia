@@ -31,7 +31,8 @@ class OrdemController extends Controller
             'defeito' => $request['defeito'], 
             'observacoes' => $request['observacoes'] 
         ]);
-        return 'foi?';
+        return redirect('/ordens')->with('success', 'Ordem de serviço iniciada!');
+
     }
 
     public function show($id){
@@ -52,7 +53,14 @@ class OrdemController extends Controller
 
     public function table(Request $request){
         $ordens = new Ordem;
+ 
+        if($request->status == 'ativos')
+            $ordens = $ordens::paginate(1);
+    
+        if($request->status == 'inativos')
+            $ordens = $ordens::onlyTrashed()->paginate(1);
 
+        
         return view('ordens.table', compact('ordens'));
     }
 }

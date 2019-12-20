@@ -2,9 +2,10 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\{Model,SoftDeletes};
 
 class Ordem extends Model {
+    use SoftDeletes;
     protected $table = 'ordens';
     protected $fillable = ['cliente_id', 'aparelho_id', 'tecnico_id', 'numero', 'desconto', 'valor', 'defeito', 'observacoes'];
 
@@ -15,7 +16,7 @@ class Ordem extends Model {
         return $this->belongsTo('\App\Tecnico');
     }
     public function aparelho() {
-        return $this->hasOne('\App\Aparelho');
+        return $this->belongsTo('\App\Aparelho');
     }
 
 }

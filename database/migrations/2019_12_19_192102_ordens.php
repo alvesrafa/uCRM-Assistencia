@@ -23,9 +23,10 @@ class Ordens extends Migration
             $table->integer('cliente_id')->unsigned();
             $table->integer('tecnico_id')->unsigned();
             $table->integer('aparelho_id')->unsigned();
-            $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade');
-            $table->foreign('tecnico_id')->references('id')->on('tecnicos')->onDelete('cascade');
+            $table->foreign('cliente_id')->references('id')->on('clientes');
+            $table->foreign('tecnico_id')->references('id')->on('tecnicos');
             $table->foreign('aparelho_id')->references('id')->on('aparelhos')->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

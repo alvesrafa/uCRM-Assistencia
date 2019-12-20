@@ -20,6 +20,7 @@ class Aparelhos extends Migration
             $table->string('marca');
             $table->string('serial');
             $table->string('imei');
+            $table->softDeletes();
             $table->timestamps();
 		});
     }
