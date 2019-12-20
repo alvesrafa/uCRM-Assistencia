@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class Ordem extends Model {
-
+    protected $table = 'ordens';
     protected $fillable = ['cliente_id', 'aparelho_id', 'tecnico_id', 'numero', 'desconto', 'valor', 'defeito', 'observacoes'];
 
     public function cliente() {
