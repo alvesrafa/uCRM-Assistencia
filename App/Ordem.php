@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\{Model,SoftDeletes};
 class Ordem extends Model {
     use SoftDeletes;
     protected $table = 'ordens';
-    protected $fillable = ['cliente_id', 'aparelho_id', 'tecnico_id', 'numero', 'desconto', 'valor', 'defeito', 'observacoes'];
+    protected $fillable = ['cliente_id', 'aparelho_id', 'status', 'tecnico_id', 'numero', 'desconto', 'valor', 'defeito', 'observacoes'];
 
     public function cliente() {
         return $this->belongsTo('\App\Cliente');

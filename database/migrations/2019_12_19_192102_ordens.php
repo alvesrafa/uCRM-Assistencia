@@ -17,6 +17,7 @@ class Ordens extends Migration
             $table->increments('id');
             $table->string('defeito');
             $table->string('observacoes');
+            $table->string('status');
             $table->integer('numero');
             $table->double('desconto', 4, 2)->nullable();
             $table->double('valor', 4, 2);
