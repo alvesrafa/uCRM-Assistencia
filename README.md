@@ -7,7 +7,7 @@ Software para gerenciamento de ordens de serviço para uma assistência técnica
 - Javascript
 
 ## Getting started
-1. Clonar repositório: https://github.com/alvesrafa/uCRM-Assistencia.git dentro do repositório do servidor Apache 
+1. Clonar repositório: https://github.com/alvesrafa/uCRM-Assistencia.git dentro do repositório do servidor Apache <br>
 &nbsp;&nbsp;&nbsp;&nbsp;1.1. Exemplo, caso utilize o XAMPP:  C:\xampp\htdocs\uCRM-Assistencia 
 2. Renomear arquivo .env.example para .env 
 3. Criar um novo banco de dados chamado 'assistencia' 
