@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\{Cliente, Tecnico, Ordem, Aparelho};
+use App\{Cliente, Tecnico, MaoObra, Ordem, Aparelho};
 
 class OrdemController extends Controller
 {
@@ -14,8 +14,9 @@ class OrdemController extends Controller
     public function create(){
         $clientes = Cliente::all();
         $tecnicos = Tecnico::all();
+        $servicos = MaoObra::all();
 
-        return view('ordens.form', compact('clientes', 'tecnicos'));
+        return view('ordens.form', compact('clientes', 'tecnicos', 'servicos'));
     }
 
     public function store(Request $request){

@@ -43,46 +43,109 @@
                     <a class="nav-item nav-link" id="nav-tecnico-tab" data-toggle="tab" href="#nav-tecnico" aria-selected="false">Técnico</a>
                 </div>
             </nav>
-            <div class="tab-content" id="nav-tabContent">
+
+            <div class="tab-content " id="nav-tabContent">
 
                 <div class="tab-pane fade show active" id="nav-cliente">
-                    <div class="row form-group">
-                        <select name="cliente_id" class="basic-single col-12">
-                            @foreach($clientes as $cliente)
-                            <option value="{{$cliente->id}}">{{$cliente->nome}} | {{$cliente->documento}}</option>
-                            @endforeach
-                        </select>
+                    <div class="card ">
+                        <div class="card-body ">
+                            <div class="row">
+                                <div class="col-12">
+                                    <label for="">Selecione o cliente:</label>
+                                </div>
+                                <div class="col-12 form-group">
+                                    <select style="width:100%;" name="cliente_id" class="basic-single">
+                                        <option selected disabled value="">Selecione o cliente</option>
+                                        @foreach($clientes as $cliente)
+                                            <option value="{{$cliente->id}}">{{$cliente->nome}} | {{$cliente->documento}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    
                 </div>
 
                 <div class="tab-pane fade" id="nav-aparelho" >
-                    <div class="row">
-                        <div class="form-group col-sm-6">
-                            <input type="text" class="form-control" placeholder="modelo" name="modelo" value="{{old('modelo', isset($ordem->aparelho->modelo) ? $ordem->aparelho->modelo : '')}}">
-                        </div>
-                        <div class="form-group col-sm-6">
-                            <input type="text" class="form-control" placeholder="marca" name="marca" value="{{old('marca', isset($ordem->aparelho->marca) ? $ordem->aparelho->marca : '')}}">
-                        </div>
-                        <div class="form-group col-sm-6">
-                            <input type="text" class="form-control" placeholder="serial" name="serial" value="{{old('serial', isset($ordem->aparelho->serial) ? $ordem->aparelho->serial : '')}}">
-                        </div>
-                        <div class="form-group col-sm-6">
-                            <input type="text" class="form-control" placeholder="imei" name="imei" value="{{old('imei', isset($ordem->aparelho->imei) ? $ordem->aparelho->imei : '')}}">
+                    <div class="card ">
+                        <div class="card-body d-flex justify-content-center ">
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <input type="text" class="form-control" placeholder="modelo" name="modelo" value="{{old('modelo', isset($ordem->aparelho->modelo) ? $ordem->aparelho->modelo : '')}}">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <input type="text" class="form-control" placeholder="marca" name="marca" value="{{old('marca', isset($ordem->aparelho->marca) ? $ordem->aparelho->marca : '')}}">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <input type="text" class="form-control" placeholder="serial" name="serial" value="{{old('serial', isset($ordem->aparelho->serial) ? $ordem->aparelho->serial : '')}}">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <input type="text" class="form-control" placeholder="imei" name="imei" value="{{old('imei', isset($ordem->aparelho->imei) ? $ordem->aparelho->imei : '')}}">
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    
+                </div>
+                
+                <div class="tab-pane fade" id="nav-peca" >
+                    <div class="card ">
+                        <div class="card-body d-flex justify-content-center ">
+                            <div class="pecas row">
+                                <div class="col-6 peca">
+                                    <select style="width:100%;" class="form-control basic-single" name="" id="">
+                                        <option value="">Teste</option>
+                                        <option value="">Teste 2</option>
+                                    </select>
+                                </div>
+                                <div class="col-4">
+                                    Botao
+                                </div>
+                                <div class="col-2">
+                                    X
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
 
-                <div class="tab-pane fade" id="nav-peca" >Peças</div>
+                <div class="tab-pane fade" id="nav-mao" >
+                    <div class="card ">
+                        <div class="card-body d-flex justify-content-center ">
+                            <div class="row">
+                                <div class="col-12">
+                                    <label for="">Selecione os serviços:</label>
+                                </div>
+                                <div class="col-12 form-group">
+                                    <select style="width:100%;" name="servicos[]" id="valor_servico" class="form-control basic-single"
+                        multiple="true">
+                                        <option selected disabled value="">Selecione a mão-de-obra</option>
+                                        @foreach($servicos as $maoobra)
+                                            <option value="{{$maoobra->id}}">{{$maoobra->nome}} | R${{$maoobra->valor}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
 
-                <div class="tab-pane fade" id="nav-mao" >Mão-de-obra</div>
+                        </div>
+                    </div>
+                    
+                </div>
 
                 <div class="tab-pane fade" id="nav-tecnico" >
-                    <div class="row form-group">
-                        <select name="tecnico_id" class="col-12 basic-single">
-                            @foreach($tecnicos as $tecnico)
-                            <option value="{{$tecnico->id}}">{{$tecnico->nome}} | {{$tecnico->documento}}</option>
-                            @endforeach
-                        </select>
+                    <div class="card ">
+                        <div class="card-body d-flex justify-content-center ">
+                            <div class="row form-group">
+                                <select style="width:100%;" name="tecnico_id" class="basic-single">
+                                    <option selected disabled value="">Selecione o técnico</option>
+                                    @foreach($tecnicos as $tecnico)
+                                        <option value="{{$tecnico->id}}">{{$tecnico->nome}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
