@@ -10,19 +10,19 @@
             @csrf
             <div class="row form-group d-flex justify-content-between">
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" placeholder="numero" name="numero">
+                    <input type="text" class="form-control" placeholder="numero" name="numero" value="{{old('numero', isset($ordem->numero) ? $ordem->numero : '')}}"> 
                 </div>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" placeholder="valor" name="valor">
+                    <input type="text" class="form-control" placeholder="valor" name="valor" value="{{old('valor', isset($ordem->valor) ? $ordem->valor : '')}}">
                 </div>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" placeholder="desconto" name="desconto">
+                    <input type="text" class="form-control" placeholder="desconto" name="desconto" value="{{old('desconto', isset($ordem->desconto) ? $ordem->desconto : '')}}">
                 </div>
             </div>
             <hr>
             <div class="row form-group">
                 <div class="col-sm-12">
-                    Status
+                    <input type="text" name="status" class="form-control" placeholder="Status" value="{{old('status', isset($ordem->status) ? $ordem->status : '')}}">  
                 </div>
             </div>
             <div class="form-group row d-flex align-items-center">
@@ -30,7 +30,7 @@
                     <input type="text" class="form-control" placeholder="defeito" name="defeito">
                 </div>
                 <div class="col-sm-6">
-                    <textarea class="form-control" name="observacoes" placeholder="observacoes" rows="3"></textarea>
+                    <textarea class="form-control" name="observacoes" placeholder="observacoes" rows="3" value="{{old('observacoes', isset($ordem->observacoes) ? $ordem->observacoes : '')}}"></textarea>
                 </div>
             </div>
             <hr>
@@ -47,29 +47,27 @@
 
                 <div class="tab-pane fade show active" id="nav-cliente">
                     <div class="row form-group">
-                            <select name="cliente_id" class="js-example-basic-single col-12">
-                                @foreach($clientes as $cliente)
-                                <option value="{{$cliente->id}}">{{$cliente->nome}} | {{$cliente->documento}}</option>
-                                @endforeach
-                            </select>
+                        <select name="cliente_id" class="basic-single col-12">
+                            @foreach($clientes as $cliente)
+                            <option value="{{$cliente->id}}">{{$cliente->nome}} | {{$cliente->documento}}</option>
+                            @endforeach
+                        </select>
                     </div>
-                    
-
                 </div>
 
                 <div class="tab-pane fade" id="nav-aparelho" >
                     <div class="row">
                         <div class="form-group col-sm-6">
-                            <input type="text" class="form-control" placeholder="modelo" name="modelo">
+                            <input type="text" class="form-control" placeholder="modelo" name="modelo" value="{{old('modelo', isset($ordem->aparelho->modelo) ? $ordem->aparelho->modelo : '')}}">
                         </div>
                         <div class="form-group col-sm-6">
-                            <input type="text" class="form-control" placeholder="marca" name="marca">
+                            <input type="text" class="form-control" placeholder="marca" name="marca" value="{{old('marca', isset($ordem->aparelho->marca) ? $ordem->aparelho->marca : '')}}">
                         </div>
                         <div class="form-group col-sm-6">
-                            <input type="text" class="form-control" placeholder="serial" name="serial">
+                            <input type="text" class="form-control" placeholder="serial" name="serial" value="{{old('serial', isset($ordem->aparelho->serial) ? $ordem->aparelho->serial : '')}}">
                         </div>
                         <div class="form-group col-sm-6">
-                            <input type="text" class="form-control" placeholder="imei" name="imei">
+                            <input type="text" class="form-control" placeholder="imei" name="imei" value="{{old('imei', isset($ordem->aparelho->imei) ? $ordem->aparelho->imei : '')}}">
                         </div>
                     </div>
                 </div>
@@ -79,7 +77,13 @@
                 <div class="tab-pane fade" id="nav-mao" >Mão-de-obra</div>
 
                 <div class="tab-pane fade" id="nav-tecnico" >
-                    <input type="text" name="tecnico_id" value="1">
+                    <div class="row form-group">
+                        <select name="tecnico_id" class="col-12 basic-single">
+                            @foreach($tecnicos as $tecnico)
+                            <option value="{{$tecnico->id}}">{{$tecnico->nome}} | {{$tecnico->documento}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
 
             </div>
@@ -97,7 +101,7 @@
 <script src="{{asset('bibliotecas/js/select2.min.js')}}"></script>
 <script>
 $(document).ready(function() {
-    $('.js-example-basic-single').select2();
+    $('.basic-single').select2();
 });
 </script>
 
