@@ -20,6 +20,7 @@ class OrdemController extends Controller
     }
 
     public function store(Request $request){
+        return $request['peca'];
         
         $aparelho = Aparelho::create($request->all());
         Ordem::create([

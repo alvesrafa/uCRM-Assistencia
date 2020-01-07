@@ -92,30 +92,32 @@
                 <div class="tab-pane fade" id="nav-peca" >
                     <div class="card ">
                         <div class="card-body">
-                            <div  class="pecas row">
-                                <div class="col-6 peca">
-                                    <select style="width:100%;" class="form-control basic-single" name="peca[][id]" id="">
-                                        <option value="">Teste</option>
-                                        <option value="">Teste 2</option>
-                                    </select>
-                                </div>
-                                <div class="col-2">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-btn">
-                                        <button type="button" class="input-group-text" id="menos">-</button>
+                            <div  class="pecas">
+                                <div class="row peca">
+                                    <div class="col-6">
+                                        <select style="width:100%;" class="form-control basic-single" name="peca[][id]" id="">
+                                            <option value="1">Teste</option>
+                                            <option value="2">Teste 2</option>
+                                        </select>
                                     </div>
-                                    <input type="text" class="form-control basic-single" name="peca[][quantidade]">
-                                    <div class="input-group-btn">
-                                        <button type="button"class="input-group-text" id="mais">+</button>
+                                    <div class="col-2">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-btn">
+                                                <button type="button" class="input-group-text" id="menos">-</button>
+                                            </div>
+                                            <input type="text" class="form-control text-center quantidade" name="peca[][quantidade]" value="1" readonly>
+                                            <div class="input-group-btn">
+                                                <button type="button"class="input-group-text" id="mais">+</button>
+                                            </div>
+                                        </div>
+                                        
                                     </div>
-                                </div>
-                                    
-                                </div>
-                                <div class="col-2">
-                                    Botao
-                                </div>
-                                <div class="col-2">
-                                    X
+                                    <div class="col-">
+                                        Botao
+                                    </div>
+                                    <div class="col-2">
+                                        X
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -178,7 +180,12 @@
 $(document).ready(function() {
     $('.basic-single').select2();
     $('#mais').click(function(){
-        console.log('mais')
+        valor = parseInt($(this).parents(".peca").find('.quantidade').val()) + 1
+        $(this).parents(".peca").find('.quantidade').val(valor)
+    })
+    $('#menos').click(function(){
+        valor = parseInt($(this).parents(".peca").find('.quantidade').val()) - 1
+        $(this).parents(".peca").find('.quantidade').val(valor)
     })
 });
 
