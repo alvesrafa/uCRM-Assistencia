@@ -57,7 +57,7 @@
                                     <select style="width:100%;" name="cliente_id" class="basic-single">
                                         <option selected disabled value="">Selecione o cliente</option>
                                         @foreach($clientes as $cliente)
-                                            <option value="{{$cliente->id}}">{{$cliente->nome}} | {{$cliente->documento}}</option>
+                                            <option value="{{$cliente->id}}" >{{$cliente->nome}} | {{$cliente->documento}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -95,9 +95,10 @@
                             <div  class="pecas">
                                 <div class="row peca">
                                     <div class="col-6">
-                                        <select style="width:100%;" class="form-control basic-single" name="peca[][id]" id="">
-                                            <option value="1">Teste</option>
-                                            <option value="2">Teste 2</option>
+                                        <select style="width:100%;" data-max="10" class="form-control basic-single" name="peca[][id]" id="">
+                                            @foreach($pecas as $peca)
+                                                <option value="{{$peca->id}}" data-quantidade="{{$peca->quantidade}}">{{$peca->nome}} | {{$peca->valorVenda}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="col-2">
@@ -179,13 +180,22 @@
 <script>
 $(document).ready(function() {
     $('.basic-single').select2();
+    $("[name='peca[][id]']").change(function(){
+        $(this).attr('data-max', $('option:selected', this).attr('data-quantidade'))
+        $(this).parents(".peca").find('.quantidade').val(1)
+    })
     $('#mais').click(function(){
-        valor = parseInt($(this).parents(".peca").find('.quantidade').val()) + 1
-        $(this).parents(".peca").find('.quantidade').val(valor)
+        var max = $(this).parents(".peca").find('select').attr('data-max')
+        if(parseInt($(this).parents(".peca").find('.quantidade').val()) < max){
+            valor = parseInt($(this).parents(".peca").find('.quantidade').val()) + 1
+            $(this).parents(".peca").find('.quantidade').val(valor)
+        }
     })
     $('#menos').click(function(){
-        valor = parseInt($(this).parents(".peca").find('.quantidade').val()) - 1
-        $(this).parents(".peca").find('.quantidade').val(valor)
+        if(parseInt($(this).parents(".peca").find('.quantidade').val()) > 1){
+            valor = parseInt($(this).parents(".peca").find('.quantidade').val()) - 1
+            $(this).parents(".peca").find('.quantidade').val(valor)
+        }
     })
 });
 
