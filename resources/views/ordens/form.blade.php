@@ -100,7 +100,16 @@
                                     </select>
                                 </div>
                                 <div class="col-2">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-btn">
+                                        <button type="button" class="input-group-text" id="menos">-</button>
+                                    </div>
                                     <input type="text" class="form-control basic-single" name="peca[][quantidade]">
+                                    <div class="input-group-btn">
+                                        <button type="button"class="input-group-text" id="mais">+</button>
+                                    </div>
+                                </div>
+                                    
                                 </div>
                                 <div class="col-2">
                                     Botao
@@ -168,7 +177,11 @@
 <script>
 $(document).ready(function() {
     $('.basic-single').select2();
+    $('#mais').click(function(){
+        console.log('mais')
+    })
 });
+
 </script>
 
 @endsection
