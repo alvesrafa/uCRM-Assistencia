@@ -104,20 +104,20 @@
                                     <div class="col-2">
                                         <div class="input-group mb-3">
                                             <div class="input-group-btn">
-                                                <button type="button" class="input-group-text" id="menos">-</button>
+                                                <button type="button" class="input-group-text menos">-</button>
                                             </div>
                                             <input type="text" class="form-control text-center quantidade" name="peca[][quantidade]" value="1" readonly>
                                             <div class="input-group-btn">
-                                                <button type="button"class="input-group-text" id="mais">+</button>
+                                                <button type="button"class="input-group-text mais">+</button>
                                             </div>
                                         </div>
                                         
                                     </div>
                                     <div class="col-">
-                                        Botao
+                                        <button type="button">X</button>
                                     </div>
                                     <div class="col-2">
-                                        X
+                                        <button class="mais-peca" type="button">+</button>
                                     </div>
                                 </div>
                             </div>
@@ -184,18 +184,23 @@ $(document).ready(function() {
         $(this).attr('data-max', $('option:selected', this).attr('data-quantidade'))
         $(this).parents(".peca").find('.quantidade').val(1)
     })
-    $('#mais').click(function(){
+    $('.mais').click(function(){
         var max = $(this).parents(".peca").find('select').attr('data-max')
         if(parseInt($(this).parents(".peca").find('.quantidade').val()) < max){
             valor = parseInt($(this).parents(".peca").find('.quantidade').val()) + 1
             $(this).parents(".peca").find('.quantidade').val(valor)
         }
     })
-    $('#menos').click(function(){
+    $('.menos').click(function(){
         if(parseInt($(this).parents(".peca").find('.quantidade').val()) > 1){
             valor = parseInt($(this).parents(".peca").find('.quantidade').val()) - 1
             $(this).parents(".peca").find('.quantidade').val(valor)
         }
+    })
+    $('.mais-peca').click(function(){
+        var teste = $('.peca').clone()
+        console.log(teste)
+        $('.pecas').append(teste)
     })
 });
 
