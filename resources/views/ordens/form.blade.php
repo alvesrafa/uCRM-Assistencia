@@ -69,7 +69,7 @@
 
                 <div class="tab-pane fade" id="nav-aparelho" >
                     <div class="card ">
-                        <div class="card-body d-flex justify-content-center ">
+                        <div class="card-body">
                             <div class="row">
                                 <div class="form-group col-sm-6">
                                     <input type="text" class="form-control" placeholder="modelo" name="modelo" value="{{old('modelo', isset($ordem->aparelho->modelo) ? $ordem->aparelho->modelo : '')}}">
@@ -91,15 +91,18 @@
                 
                 <div class="tab-pane fade" id="nav-peca" >
                     <div class="card ">
-                        <div class="card-body d-flex justify-content-center ">
-                            <div class="pecas row">
+                        <div class="card-body">
+                            <div  class="pecas row">
                                 <div class="col-6 peca">
-                                    <select style="width:100%;" class="form-control basic-single" name="" id="">
+                                    <select style="width:100%;" class="form-control basic-single" name="peca[][id]" id="">
                                         <option value="">Teste</option>
                                         <option value="">Teste 2</option>
                                     </select>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-2">
+                                    <input type="text" class="form-control basic-single" name="peca[][quantidade]">
+                                </div>
+                                <div class="col-2">
                                     Botao
                                 </div>
                                 <div class="col-2">
@@ -113,7 +116,7 @@
 
                 <div class="tab-pane fade" id="nav-mao" >
                     <div class="card ">
-                        <div class="card-body d-flex justify-content-center ">
+                        <div class="card-body">
                             <div class="row">
                                 <div class="col-12">
                                     <label for="">Selecione os serviços:</label>
@@ -136,7 +139,7 @@
 
                 <div class="tab-pane fade" id="nav-tecnico" >
                     <div class="card ">
-                        <div class="card-body d-flex justify-content-center ">
+                        <div class="card-body ">
                             <div class="row form-group">
                                 <select style="width:100%;" name="tecnico_id" class="basic-single">
                                     <option selected disabled value="">Selecione o técnico</option>
