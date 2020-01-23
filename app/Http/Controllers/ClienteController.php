@@ -73,10 +73,10 @@ class ClienteController extends Controller
     public function table(Request $request){
         $clientes = new Cliente;
         if($request->status == 'ativos')
-            $clientes = $clientes::paginate(1);
+            $clientes = $clientes::paginate(8);
         
         if($request->status == 'inativos')
-            $clientes = $clientes::onlyTrashed()->paginate(1);
+            $clientes = $clientes::onlyTrashed()->paginate(8);
             
         return view('cliente.table', compact('clientes'));
     }

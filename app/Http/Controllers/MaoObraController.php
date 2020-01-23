@@ -67,10 +67,10 @@ class MaoObraController extends Controller{
     public function table(Request $request){
         $maoobras = new MaoObra;
         if($request->status == 'ativos')
-            $maoobras = $maoobras::paginate(1);
+            $maoobras = $maoobras::paginate(8);
         
         if($request->status == 'inativos')
-            $maoobras = $maoobras::onlyTrashed()->paginate(1);
+            $maoobras = $maoobras::onlyTrashed()->paginate(8);
             
         return view('maoobra.table', compact('maoobras'));
     }

@@ -66,10 +66,10 @@ class PecaController extends Controller
     public function table(Request $request){
         $pecas = new Peca;
         if($request->status == 'ativos')
-            $pecas = $pecas::paginate(1);
+            $pecas = $pecas::paginate(8);
         
         if($request->status == 'inativos')
-            $pecas = $pecas::onlyTrashed()->paginate(1);
+            $pecas = $pecas::onlyTrashed()->paginate(8);
             
         return view('pecas.table', compact('pecas'));
     }

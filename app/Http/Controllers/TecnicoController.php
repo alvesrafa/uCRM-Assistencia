@@ -67,10 +67,10 @@ class TecnicoController extends Controller{
     public function table(Request $request){
         $tecnicos = new tecnico;
         if($request->status == 'ativos')
-            $tecnicos = $tecnicos::paginate(1);
+            $tecnicos = $tecnicos::paginate(8);
         
         if($request->status == 'inativos')
-            $tecnicos = $tecnicos::onlyTrashed()->paginate(1);
+            $tecnicos = $tecnicos::onlyTrashed()->paginate(8);
             
         return view('tecnico.table', compact('tecnicos'));
     }

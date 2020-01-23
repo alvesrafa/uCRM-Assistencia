@@ -18,5 +18,10 @@ class Ordem extends Model {
     public function aparelho() {
         return $this->belongsTo('\App\Aparelho');
     }
-
+    public function pecas() {
+        return $this->belongsToMany('App\Peca', 'ordem_pecas');
+    }
+    public function maoobras() {
+        return $this->belongsToMany('App\MaoObra', 'ordem_mao_obras');
+    }
 }

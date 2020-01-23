@@ -88,38 +88,41 @@
                     </div>
                     
                 </div>
-                
+                <?php
+                    $pecasOrdem = old('pecas', isset($ordem) ? $ordem->pecas : [[]]);      
+                ?>
                 <div class="tab-pane fade" id="nav-peca" >
                     <div class="card ">
                         <div class="card-body">
                             <div  class="pecas">
+                            @foreach ($pecasOrdem as $key => $peca)
                                 <div class="row peca">
-                                    <div class="col-6">
-                                        <select style="width:100%;" data-max="10" class="form-control basic-single" name="peca[][id]" id="">
+                                    <div class="col-sm-5">
+                                        <select style="width:100%;" data-max="10" class="form-control" name="peca[{{$key}}][id]" id="">
                                             @foreach($pecas as $peca)
                                                 <option value="{{$peca->id}}" data-quantidade="{{$peca->quantidade}}">{{$peca->nome}} | {{$peca->valorVenda}}</option>
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-2">
-                                        <div class="input-group mb-3">
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
                                             <div class="input-group-btn">
                                                 <button type="button" class="input-group-text menos">-</button>
                                             </div>
-                                            <input type="text" class="form-control text-center quantidade" name="peca[][quantidade]" value="1" readonly>
+                                            <input type="text" class="form-control text-center quantidade" name="peca[{{$key}}][quantidade]" value="1" readonly>
                                             <div class="input-group-btn">
                                                 <button type="button"class="input-group-text mais">+</button>
                                             </div>
                                         </div>
-                                        
                                     </div>
-                                    <div class="col-">
-                                        <button type="button">X</button>
-                                    </div>
-                                    <div class="col-2">
-                                        <button class="mais-peca" type="button">+</button>
+                                    <div class="col-sm-1">
+                                        <button class="deletar" type="button">X</button>
                                     </div>
                                 </div>
+                            @endforeach
+                            </div>
+                            <div class="col-12 mt-3">
+                                <button class="mais-peca col-12 btn btn-success" type="button">+</button>
                             </div>
                         </div>
                     </div>
@@ -174,11 +177,16 @@
         </form>
     </div>
 </div>
+
+
+
+
+
+
 @endsection
 @section('js')
 <script src="{{asset('bibliotecas/js/select2.min.js')}}"></script>
 <script>
-$(document).ready(function() {
     $('.basic-single').select2();
     $("[name='peca[][id]']").change(function(){
         $(this).attr('data-max', $('option:selected', this).attr('data-quantidade'))
@@ -197,12 +205,20 @@ $(document).ready(function() {
             $(this).parents(".peca").find('.quantidade').val(valor)
         }
     })
+    $('.deletar').click(function(){
+        console.log(this)
+        $(this).closest('.produto').remove();
+
+     })
     $('.mais-peca').click(function(){
-        var teste = $('.peca').clone()
-        console.log(teste)
-        $('.pecas').append(teste)
-    })
-});
+        var peca = $('.peca').last().clone()
+        
+        peca.find('select').val("");
+        peca.find('input').val(1);
+      
+
+        peca.appendTo($(".pecas"));
+     })
 
 </script>
 

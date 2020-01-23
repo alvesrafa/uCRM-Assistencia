@@ -20,7 +20,8 @@ class OrdemController extends Controller
     }
 
     public function store(Request $request){
-        return $request['peca'];
+        $dados = $request->all();
+        return $dados;
 
         $aparelho = Aparelho::create($request->all());
         Ordem::create([
@@ -57,10 +58,10 @@ class OrdemController extends Controller
         $ordens = new Ordem;
  
         if($request->status == 'ativos')
-            $ordens = $ordens::paginate(1);
+            $ordens = $ordens::paginate(8);
     
         if($request->status == 'inativos')
-            $ordens = $ordens::onlyTrashed()->paginate(1);
+            $ordens = $ordens::onlyTrashed()->paginate(8);
 
         
         return view('ordens.table', compact('ordens'));
