@@ -92,71 +92,7 @@
                     $pecasOrdem = old('pecas', isset($ordem) ? $ordem->pecas : [[]]);      
                 ?>
                 <div class="tab-pane fade" id="nav-peca" >
-                    <div class="card ">
-                        <div class="card-body">
-                        <?php
-                            $itemPeca = old('pecas', isset($pedido) ? $pedido->pecas : [[]]);
-                        ?>
-                        <div class="pecas">
-                        <h3>Peca(s)</h3>
-                            @foreach ($itemPeca as $key => $pec)
-                            <div class="row peca ">
-                                <hr>
-                                <div class="col-lg col-md form-group">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="material-icons">format_list_numbered</i></span>
-                                        </div>
-                                    
-                                        <select name="pecas[{{$key}}][peca_id]" data-max="10" required class="form-control select">
-                                            <option value="" {{isset($pedido) ? '' : 'selected'}} disabled>Selecione um peca</option>
-                                            @foreach($pecas as $peca)   
-                                                <option 
-                                                data-quantidade="{{$peca->quantidade}}"
-                                                value="{{$peca->id}}" {{ (array_key_exists('peca_id', $pec) ? $pec['peca_id'] : (isset($pec->pivot) ? $pec['pivot']['peca_id'] : '')) == $peca->id ? 'selected' : '' }}
-                                                >
-                                                {{$peca->quantidade}}">{{$peca->nome}} | {{$peca->valorVenda}}
-                                                </option>
-                                            @endforeach          
-                                        </select>  
-                                        <span class="mensagem-erro">{{$errors->first('pecas.'.$key.'.peca_id')}}</span>
-                                                
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-11 form-group">
-                                    <div class="input-group">
-                                        <div class="input-group-btn">
-                                            <button type="button" class="input-group-text menos">-</button>
-                                        </div>
-                                        <input 
-                                            type="text" 
-                                            required 
-                                            class="form-control quantidade text-center" 
-                                            value="{{array_key_exists('quantidade', $pec) ? $pec['quantidade'] : (isset($pec->pivot) ? $pec['pivot']['quantidade'] : 1)}}"  
-                                            name="pecas[{{$key}}][quantidade]" 
-                                            placeholder="Quantidade"
-                                            readonly
-                                        >
-                                        <div class="input-group-btn">
-                                            <button type="button"class="input-group-text mais">+</button>
-                                        </div>
-                                        <span class="mensagem-erro">{{$errors->first('pecas.'.$key.'.quantidade')}}</span>
-                                    </div>                 
-                                </div>
-                                <div class="col-lg-1 col-sm-12 form-group {{(isset($pedido) ? count($itemPeca) : '') > 1 ? '' : 'd-none'}}">
-                                    <button type="button" class="btn btn-danger btn-block excluir-peca"><strong>X</strong></button>
-                                </div>
-                                <hr>
-                            </div>
-                            @endforeach
-                        </div>
-                        <div class="text-center">
-                            <button type="button" id="adicionar-peca" class="btn btn-primary"><strong>+</strong></button>
-                        </div>
-
-                        </div>
-                    </div>
-                    
+                    @include('ordens._pecas')
                 </div>
 
                 <div class="tab-pane fade" id="nav-mao" >
@@ -218,56 +154,51 @@
 <script src="{{asset('bibliotecas/js/select2.min.js')}}"></script>
 <script>
     $('.basic-single').select2();
-    $(".select").change(function(){
+
+    $(document).on('change', '.select', function(){
         $(this).attr('data-max', $('option:selected', this).attr('data-quantidade'))
         $(this).parents(".peca").find('.quantidade').val(1)
     })
-    $('.mais').click(function(){
+    $(document).on('click', '.mais', function (){
         var max = $(this).parents(".peca").find('select').attr('data-max')
         if(parseInt($(this).parents(".peca").find('.quantidade').val()) < max){
             valor = parseInt($(this).parents(".peca").find('.quantidade').val()) + 1
             $(this).parents(".peca").find('.quantidade').val(valor)
         }
     })
-    $('.menos').click(function(){
+    $(document).on('click', '.menos', function (){
         if(parseInt($(this).parents(".peca").find('.quantidade').val()) > 1){
             valor = parseInt($(this).parents(".peca").find('.quantidade').val()) - 1
             $(this).parents(".peca").find('.quantidade').val(valor)
         }
     })
+    $(document).on('click', '#adicionar-peca', function () {
 
+        $('.excluir-peca').parent().removeClass('d-none');
+        var pedido = $(".peca").last().clone();
 
+        pedido.find('.error').remove();
+        pedido.find('.has-error').removeClass('has-error')
 
+        var inputs = pedido.find('select, input');
+        inputs.val("");
+        inputs.map((i, input) => {
+            var match = $(input).attr('name').match(/\[(\d+)]/g)[0]
+            var contador = parseInt(match.replace('[', '').replace(']', '')) + 1
+            var newName = $(input).attr('name').replace(match, `[${contador}]`)
 
-
-
-$(document).on('click', '#adicionar-peca', function () {
-
-    $('.excluir-peca').parent().removeClass('d-none');
-    var pedido = $(".peca").last().clone();
-
-    pedido.find('.error').remove();
-    pedido.find('.has-error').removeClass('has-error')
-
-    var inputs = pedido.find('select, input');
-    inputs.val("");
-    inputs.map((i, input) => {
-        var match = $(input).attr('name').match(/\[(\d+)]/g)[0]
-        var contador = parseInt(match.replace('[', '').replace(']', '')) + 1
-        var newName = $(input).attr('name').replace(match, `[${contador}]`)
-
-        $(input).attr('name', newName)
-    })
-    pedido.appendTo($(".pecas"));
-});
-$(document).on('click', '.excluir-peca', function () {
-if ($('.peca').length == 2) {
-    $(this).closest('.peca').remove();
-    $('.excluir-peca').parent().addClass('d-none');
-} else if ($('.peca').length >= 2) {
-    $(this).closest('.peca').remove();
-}
-});
+            $(input).attr('name', newName)
+        })
+        pedido.appendTo($(".pecas"));
+    });
+    $(document).on('click', '.excluir-peca', function () {
+    if ($('.peca').length == 2) {
+        $(this).closest('.peca').remove();
+        $('.excluir-peca').parent().addClass('d-none');
+    } else if ($('.peca').length >= 2) {
+        $(this).closest('.peca').remove();
+    }
+    });
 
 $(document).ready(function () {
 if ($('.peca').length >= 2) { //quando for edição e tiver mais de um peca ele mostra o boão de exclusão da peca
