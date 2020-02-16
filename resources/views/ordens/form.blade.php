@@ -105,7 +105,7 @@
                                 <div class="col-12 form-group">
                                     <select style="width:100%;" name="servicos[]" id="valor_servico" class="form-control basic-single"
                         multiple="true">
-                                        <option selected disabled value="">Selecione a mão-de-obra</option>
+                                        <option disabled value="">Selecione a mão-de-obra</option>
                                         @foreach($servicos as $maoobra)
                                             <option value="{{$maoobra->id}}">{{$maoobra->nome}} | R${{$maoobra->valor}}</option>
                                         @endforeach

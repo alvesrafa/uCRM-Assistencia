@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\{Cliente, Tecnico, MaoObra, Ordem, Aparelho, Peca};
+use App\{Cliente, Tecnico, MaoObra, Ordem, Aparelho, Peca, OrdemMaoObra, OrdemPecas};
 
 class OrdemController extends Controller
 {
@@ -20,20 +20,36 @@ class OrdemController extends Controller
     }
 
     public function store(Request $request){
-        $dados = $request->all();
-        return $dados;
-
         $aparelho = Aparelho::create($request->all());
-        Ordem::create([
+        $pecas = $request['pecas'];
+        $servicos = $request['servicos'];
+        
+        
+
+        $ordem = Ordem::create([
             'cliente_id' => $request['cliente_id'],
             'aparelho_id' => $aparelho->id, 
             'tecnico_id' => $request['tecnico_id'], 
-            'numero' => $request['numero'], 
+            'numero' => $request['numero'],
+            'status' => $request['status'],
             'desconto' => $request['desconto'], 
             'valor' => $request['valor'], 
             'defeito' => $request['defeito'], 
             'observacoes' => $request['observacoes'] 
         ]);
+        foreach($servicos as $idServico){
+            OrdemMaoObra::create([
+                'ordem_id' => $ordem->id,
+                'maoobra_id' => $idServico
+            ]);
+        }
+        foreach($pecas as $idPeca){
+            OrdemMaoObra::create([
+                'ordem_id' => $ordem->id,
+                'peca_id' => $idPeca
+            ]);
+        }
+
         return redirect('/ordens')->with('success', 'Ordem de serviço iniciada!');
 
     }
