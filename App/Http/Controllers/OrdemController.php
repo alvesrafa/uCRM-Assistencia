@@ -37,16 +37,17 @@ class OrdemController extends Controller
             'defeito' => $request['defeito'], 
             'observacoes' => $request['observacoes'] 
         ]);
+
         foreach($servicos as $idServico){
             OrdemMaoObra::create([
                 'ordem_id' => $ordem->id,
-                'maoobra_id' => $idServico
+                'maoobra_id' => intval($idServico)
             ]);
         }
         foreach($pecas as $idPeca){
-            OrdemMaoObra::create([
+            OrdemPecas::create([
                 'ordem_id' => $ordem->id,
-                'peca_id' => $idPeca
+                'peca_id' => intval($idPeca)
             ]);
         }
 

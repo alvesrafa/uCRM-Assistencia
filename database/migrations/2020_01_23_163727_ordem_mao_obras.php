@@ -16,7 +16,6 @@ class OrdemMaoObras extends Migration
         Schema::create('ordem_mao_obras', function (Blueprint $table) {
             $table->integer('ordem_id')->unsigned();
 			$table->integer('maoobra_id')->unsigned()->index('fk_ordem_has_maoobra');
-			$table->primary(['ordem_id','maoobra_id']);
         });
     }
 

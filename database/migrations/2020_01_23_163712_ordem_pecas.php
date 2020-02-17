@@ -15,8 +15,7 @@ class OrdemPecas extends Migration
     {
         Schema::create('ordem_pecas', function (Blueprint $table) {
             $table->integer('ordem_id')->unsigned();
-			$table->integer('pecas_id')->unsigned()->index('fk_ordem_has_pecas');
-			$table->primary(['ordem_id','pecas_id']);
+			$table->integer('peca_id')->unsigned()->index('fk_ordem_has_peca');
         });
     }
 
