@@ -3,7 +3,7 @@ Software para gerenciamento de ordens de serviço para uma assistência técnica
 
 
 ## 🚀 <strong>Deploy</strong> <a name = "deployment"></a>
-Aplicação funcional está disponível: [uCRM Assistência](https://github.com/rodrigosborges/FreeERP/tree/assistencia_tecnica)
+Aplicação funcionando está disponível [aqui](https://github.com/rodrigosborges/FreeERP/tree/assistencia_tecnica)
 
 ## Features
 - PHP (Laravel)
